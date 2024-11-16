@@ -144,9 +144,11 @@
                         const envName = event.target.textContent;
                         const row = event.target.closest('tr');
                         const servers = Array.from(row.querySelectorAll('.server-name a')).map(a => a.textContent);
+                        
+                        // Open each server in a new window/tab
                         servers.forEach(server => {
-                            // Open each server in SSH
-                            window.location.href = `ssh://${server}`;
+                            // Open the SSH link for each server in a new tab
+                            window.open(`ssh://${server}`, '_blank');
                         });
                     });
                 });
