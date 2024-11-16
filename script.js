@@ -1,4 +1,4 @@
-(function() {
+javascript:(function() {
     const jsonUrl = "https://raw.githubusercontent.com/your-repo/serverGroups/main/serverGroups.json"; // Replace with your URL
     
     // Inject CSS for active tab
@@ -94,17 +94,19 @@
                 const tbody = document.createElement("tbody");
 
                 group.serverList.forEach(envGroup => {
+                    // Environment row
                     const envRow = document.createElement("tr");
                     envRow.innerHTML = `
-                        <td style="border: 1px solid #ccc; padding: 8px;" rowspan="${envGroup.servers.length}">${envGroup.Env}</td>
-                        <td style="border: 1px solid #ccc; padding: 8px;">${envGroup.servers[0]}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;" rowspan="${envGroup.servers.length}" class="env-name">${envGroup.Env}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;" class="server-name">${envGroup.servers[0]}</td>
                     `;
                     tbody.appendChild(envRow);
 
+                    // Server rows for that environment
                     envGroup.servers.slice(1).forEach(server => {
                         const serverRow = document.createElement("tr");
                         serverRow.innerHTML = `
-                            <td style="border: 1px solid #ccc; padding: 8px;">${server}</td>
+                            <td style="border: 1px solid #ccc; padding: 8px;" class="server-name">${server}</td>
                         `;
                         tbody.appendChild(serverRow);
                     });
@@ -112,6 +114,27 @@
 
                 table.appendChild(tbody);
                 tableContainer.appendChild(table);
+
+                // Add click event to environment to open ssh for each server in the environment
+                const envNames = document.querySelectorAll('.env-name');
+                envNames.forEach(env => {
+                    env.addEventListener('click', (event) => {
+                        const envName = event.target.textContent;
+                        const servers = Array.from(event.target.closest('tr').querySelectorAll('.server-name')).map(server => server.textContent);
+                        servers.forEach(server => {
+                            window.open(`ssh://${server}`, '_blank');
+                        });
+                    });
+                });
+
+                // Add click event to each server to open ssh link
+                const serverNames = document.querySelectorAll('.server-name');
+                serverNames.forEach(server => {
+                    server.addEventListener('click', (event) => {
+                        const serverName = event.target.textContent;
+                        window.open(`ssh://${serverName}`, '_blank');
+                    });
+                });
             }
 
             // Add default active class to the first tab
