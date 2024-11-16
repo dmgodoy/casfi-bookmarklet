@@ -1,6 +1,24 @@
 javascript:(function() {
     const jsonUrl = "https://raw.githubusercontent.com/your-repo/serverGroups/main/serverGroups.json"; // Replace with your URL
     
+    // Inject CSS for active tab
+    const style = document.createElement("style");
+    style.innerHTML = `
+        .tab {
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #eee;
+        }
+        .tab.active {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+    `;
+    document.head.appendChild(style);
+
     fetch(jsonUrl)
         .then(response => response.json())
         .then(data => {
@@ -18,7 +36,7 @@ javascript:(function() {
             tabs.style.listStyleType = "none";
             tabs.style.padding = "0";
             tabs.style.margin = "0 0 10px 0";
-            data.serverGroups.forEach(group => {
+            data.serverGroups.forEach((group, index) => {
                 const tab = document.createElement("li");
                 tab.style.cursor = "pointer";
                 tab.style.marginRight = "10px";
@@ -27,10 +45,22 @@ javascript:(function() {
                 tab.style.backgroundColor = "#eee";
                 tab.textContent = group.groupName;
 
+                // Set the tab index
+                tab.setAttribute('data-index', index);
+
+                // Add event listener for tab click
                 tab.addEventListener("click", () => {
+                    // Remove 'active' class from all tabs
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+                    // Add 'active' class to the clicked tab
+                    tab.classList.add('active');
+
+                    // Show the corresponding table
                     showTable(group);
                 });
 
+                tab.classList.add('tab'); // Add the 'tab' class for later reference
                 tabs.appendChild(tab);
             });
             panel.appendChild(tabs);
@@ -83,6 +113,9 @@ javascript:(function() {
                 table.appendChild(tbody);
                 tableContainer.appendChild(table);
             }
+
+            // Add default active class to the first tab
+            tabs.querySelector("li").classList.add('active');
         })
         .catch(error => {
             console.error("Error loading JSON data:", error);
