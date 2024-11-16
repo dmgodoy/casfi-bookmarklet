@@ -1,0 +1,112 @@
+{
+  "serverGroups": [
+    {
+      "groupName": "Formatting",
+      "distro": "RHEL7",
+      "jumpServer": "no",
+      "serverList": [
+        {
+          "Env": "DEV",
+          "jumpServer": "",
+          "servers": ["dev-format-01.example.com", "dev-format-02.example.com"]
+        },
+        {
+          "Env": "TE1",
+          "jumpServer": "",
+          "servers": ["te1-format-01.example.com", "te1-format-02.example.com"]
+        },
+        {
+          "Env": "TE2",
+          "jumpServer": "",
+          "servers": ["te2-format-01.example.com", "te2-format-02.example.com"]
+        },
+        {
+          "Env": "PROD",
+          "jumpServer": "",
+          "servers": ["prod-format-01.example.com", "prod-format-02.example.com"]
+        }
+      ]
+    },
+    {
+      "groupName": "Signer",
+      "distro": "RHEL8",
+      "jumpServer": "yes",
+      "serverList": [
+        {
+          "Env": "DEV",
+          "jumpServer": "jumpserver.dev.example.com",
+          "servers": ["dev-signer-01.example.com", "dev-signer-02.example.com"]
+        },
+        {
+          "Env": "TE1",
+          "jumpServer": "jumpserver.te1.example.com",
+          "servers": ["te1-signer-01.example.com"]
+        },
+        {
+          "Env": "TE2",
+          "jumpServer": "jumpserver.te2.example.com",
+          "servers": ["te2-signer-01.example.com", "te2-signer-02.example.com"]
+        },
+        {
+          "Env": "PROD",
+          "jumpServer": "jumpserver.prod.example.com",
+          "servers": ["prod-signer-01.example.com"]
+        }
+      ]
+    },
+    {
+      "groupName": "TMM",
+      "distro": "RHEL7",
+      "jumpServer": "no",
+      "serverList": [
+        {
+          "Env": "DEV",
+          "jumpServer": "",
+          "servers": ["dev-tmm-01.example.com"]
+        },
+        {
+          "Env": "TE1",
+          "jumpServer": "",
+          "servers": ["te1-tmm-01.example.com", "te1-tmm-02.example.com"]
+        },
+        {
+          "Env": "TE2",
+          "jumpServer": "",
+          "servers": ["te2-tmm-01.example.com"]
+        },
+        {
+          "Env": "PROD",
+          "jumpServer": "",
+          "servers": ["prod-tmm-01.example.com", "prod-tmm-02.example.com"]
+        }
+      ]
+    },
+    {
+      "groupName": "Formatting RHEL8",
+      "distro": "RHEL8",
+      "jumpServer": "no",
+      "serverList": [
+        {
+          "Env": "DEV",
+          "jumpServer": "",
+          "servers": ["dev-format-rhel8-01.example.com", "dev-format-rhel8-02.example.com"]
+        },
+        {
+          "Env": "TE1",
+          "jumpServer": "",
+          "servers": ["te1-format-rhel8-01.example.com"]
+        },
+        {
+          "Env": "TE2",
+          "jumpServer": "",
+          "servers": ["te2-format-rhel8-01.example.com", "te2-format-rhel8-02.example.com"]
+        },
+        {
+          "Env": "PROD",
+          "jumpServer": "",
+          "servers": ["prod-format-rhel8-01.example.com"]
+        }
+      ]
+    }
+  ]
+}
