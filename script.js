@@ -1,4 +1,4 @@
-javascript:(function() {
+(function() {
     const jsonUrl = "https://raw.githubusercontent.com/your-repo/serverGroups/main/serverGroups.json"; // Replace with your URL
     
     // Inject CSS for active tab
