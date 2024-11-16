@@ -1,7 +1,7 @@
 javascript:(function() {
     const jsonUrl = "https://raw.githubusercontent.com/your-repo/serverGroups/main/serverGroups.json"; // Replace with your URL
     
-    // Inject CSS for active tab
+    // Inject CSS for active tab and clickable environment
     const style = document.createElement("style");
     style.innerHTML = `
         .tab {
@@ -15,6 +15,22 @@ javascript:(function() {
             background-color: #4CAF50;
             color: white;
             font-weight: bold;
+        }
+        .server-link, .env-link {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .server-link:hover, .env-link:hover {
+            text-decoration: underline;
+        }
+        .env-name {
+            font-weight: bold;
+            cursor: pointer;
+            color: #007bff;
+        }
+        .env-name:hover {
+            text-decoration: underline;
         }
     `;
     document.head.appendChild(style);
@@ -94,11 +110,15 @@ javascript:(function() {
                 const tbody = document.createElement("tbody");
 
                 group.serverList.forEach(envGroup => {
-                    // Environment row
+                    // Environment row (make the environment name a link)
                     const envRow = document.createElement("tr");
                     envRow.innerHTML = `
-                        <td style="border: 1px solid #ccc; padding: 8px;" rowspan="${envGroup.servers.length}" class="env-name">${envGroup.Env}</td>
-                        <td style="border: 1px solid #ccc; padding: 8px;" class="server-name">${envGroup.servers[0]}</td>
+                        <td style="border: 1px solid #ccc; padding: 8px;" rowspan="${envGroup.servers.length}" class="env-name">
+                            <a href="#" class="env-link">${envGroup.Env}</a>
+                        </td>
+                        <td style="border: 1px solid #ccc; padding: 8px;" class="server-name">
+                            <a href="ssh://${envGroup.servers[0]}" class="server-link" target="_blank">${envGroup.servers[0]}</a>
+                        </td>
                     `;
                     tbody.appendChild(envRow);
 
@@ -106,7 +126,9 @@ javascript:(function() {
                     envGroup.servers.slice(1).forEach(server => {
                         const serverRow = document.createElement("tr");
                         serverRow.innerHTML = `
-                            <td style="border: 1px solid #ccc; padding: 8px;" class="server-name">${server}</td>
+                            <td style="border: 1px solid #ccc; padding: 8px;" class="server-name">
+                                <a href="ssh://${server}" class="server-link" target="_blank">${server}</a>
+                            </td>
                         `;
                         tbody.appendChild(serverRow);
                     });
