@@ -142,9 +142,10 @@
                 envNames.forEach(env => {
                     env.addEventListener('click', (event) => {
                         const envName = event.target.textContent;
-                        const servers = Array.from(event.target.closest('tr').querySelectorAll('.server-name')).map(server => server.textContent);
+                        const row = event.target.closest('tr');
+                        const servers = Array.from(row.querySelectorAll('.server-name a')).map(a => a.textContent);
                         servers.forEach(server => {
-                            // Use location.href to open in the same tab
+                            // Open each server in SSH
                             window.location.href = `ssh://${server}`;
                         });
                     });
