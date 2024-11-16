@@ -1,4 +1,4 @@
-javascript:(function() {
+(function() {
     const jsonUrl = "https://raw.githubusercontent.com/your-repo/serverGroups/main/serverGroups.json"; // Replace with your URL
     
     // Inject CSS for active tab and clickable environment
@@ -110,11 +110,11 @@ javascript:(function() {
                 const tbody = document.createElement("tbody");
 
                 group.serverList.forEach(envGroup => {
-                    // Environment row (make the environment name a link)
+                    // Environment row (styled as clickable link)
                     const envRow = document.createElement("tr");
                     envRow.innerHTML = `
                         <td style="border: 1px solid #ccc; padding: 8px;" rowspan="${envGroup.servers.length}" class="env-name">
-                            <a href="#" class="env-link">${envGroup.Env}</a>
+                            ${envGroup.Env}
                         </td>
                         <td style="border: 1px solid #ccc; padding: 8px;" class="server-name">
                             <a href="ssh://${envGroup.servers[0]}" class="server-link" target="_self">${envGroup.servers[0]}</a>
