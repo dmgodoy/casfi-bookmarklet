@@ -117,7 +117,7 @@ javascript:(function() {
                             <a href="#" class="env-link">${envGroup.Env}</a>
                         </td>
                         <td style="border: 1px solid #ccc; padding: 8px;" class="server-name">
-                            <a href="ssh://${envGroup.servers[0]}" class="server-link" target="_blank">${envGroup.servers[0]}</a>
+                            <a href="ssh://${envGroup.servers[0]}" class="server-link" target="_self">${envGroup.servers[0]}</a>
                         </td>
                     `;
                     tbody.appendChild(envRow);
@@ -127,7 +127,7 @@ javascript:(function() {
                         const serverRow = document.createElement("tr");
                         serverRow.innerHTML = `
                             <td style="border: 1px solid #ccc; padding: 8px;" class="server-name">
-                                <a href="ssh://${server}" class="server-link" target="_blank">${server}</a>
+                                <a href="ssh://${server}" class="server-link" target="_self">${server}</a>
                             </td>
                         `;
                         tbody.appendChild(serverRow);
@@ -144,17 +144,19 @@ javascript:(function() {
                         const envName = event.target.textContent;
                         const servers = Array.from(event.target.closest('tr').querySelectorAll('.server-name')).map(server => server.textContent);
                         servers.forEach(server => {
-                            window.open(`ssh://${server}`, '_blank');
+                            // Use location.href to open in the same tab
+                            window.location.href = `ssh://${server}`;
                         });
                     });
                 });
 
-                // Add click event to each server to open ssh link
+                // Add click event to each server to open ssh link in same tab
                 const serverNames = document.querySelectorAll('.server-name');
                 serverNames.forEach(server => {
                     server.addEventListener('click', (event) => {
                         const serverName = event.target.textContent;
-                        window.open(`ssh://${serverName}`, '_blank');
+                        // Use location.href to open in the same tab
+                        window.location.href = `ssh://${serverName}`;
                     });
                 });
             }
