@@ -142,15 +142,20 @@
                 envNames.forEach(env => {
                     env.addEventListener('click', (event) => {
                         const envName = event.target.textContent;
-                        const servers = Array.from(event.target.closest('tr').querySelectorAll('.server-name')).map(server => server.textContent);
-                        servers.forEach(server => {
-                            // Use location.href to open in the same tab
-                            window.location.href = `ssh://${server}`;
+                        const groupIndex = data.serverGroups.findIndex(group => 
+                            group.serverList.some(envGroup => envGroup.Env === envName)
+                        );
+                        
+                        const envGroup = data.serverGroups[groupIndex].serverList.find(envGroup => envGroup.Env === envName);
+                        
+                        // Open each server in a new window/tab
+                        envGroup.servers.forEach(server => {
+                            window.open(`ssh://${server}`, '_blank');
                         });
                     });
                 });
 
-                // Add click event to each server to open ssh link in same tab
+                // Add click event to each server to open ssh link in the same tab
                 const serverNames = document.querySelectorAll('.server-name');
                 serverNames.forEach(server => {
                     server.addEventListener('click', (event) => {
